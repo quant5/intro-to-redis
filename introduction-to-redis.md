@@ -148,15 +148,15 @@ r.zrevrank('portfolio', 'CMG')
 
 #### Other useful commands
 
-* keys() shows all the keys in the current database
-* delete(key) deletes a key
-* flushdb() deletes all keys in the database
-* flushall() deletes all keys in all db's - use this carefully! You may have forgotten about keys in other db's
-* rename(key, newkey) renames key to newkey
-* sort() sorts a list, set or sorted set
-* setex(), expire() sets expiration flag on a key for n seconds, after which the key will disappear
-* pubsub() creates a publisher-subscriber pattern
-* eval() evaluates Lua scripts
+* `keys()` shows all the keys in the current database
+* `delete(key)` deletes a key
+* `flushdb()` deletes all keys in the database
+* `flushall()` deletes all keys in all db's - use this carefully! You may have forgotten about keys in other db's
+* `rename(key, newkey)` renames key to newkey
+* `sort()` sorts a list, set or sorted set
+* `setex()`, expire() sets expiration flag on a key for n seconds, after which the key will disappear
+* `pubsub()` creates a publisher-subscriber pattern. More info: http://redis.io/topics/pubsub
+* `eval()` evaluates Lua scripts
 
 
 ```python
@@ -227,7 +227,7 @@ pickled_object = pickle.dumps(res)
 r.set('foo', pickled_object)
 ```
 
-### Example 2: task queues
+#### Example 2: task queues
 
 Redis's `list` data type is a natural choice for task queues. This is a common Redis application for a language with limited async capabilities like Python. There are many Redis-based wrappers like [rq](http://python-rq.org/) and [celery](http://www.celeryproject.org/), etc but here's a low level implementation:
 
@@ -288,6 +288,8 @@ for task in tasks:
     rq.put(task)
 ```
 
+Now, simply launch separate instances of Python (see `redis-worker.py`) and run the worker script:
+
 
 ```python
 while not rq.is_empty():
@@ -303,3 +305,5 @@ print('All done')
 * Redis resides RAM so may be costly for your local machine
     * Solution: dedicated machine that runs Redis. This was our setup at Yipit
 * Key management may be cumbersome if you don't remember what's in what key
+
+### Any questions?
