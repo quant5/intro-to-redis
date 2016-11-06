@@ -330,8 +330,6 @@ from redis import Redis
 import random
 from string import ascii_letters
 
-r = Redis(host='localhost', port=6379, db=0, decode_responses=True)
-
 hugestring = ''.join([random.choice(ascii_letters) for i in range(1000000)])
 ```
 
