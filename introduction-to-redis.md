@@ -39,24 +39,10 @@ r.get('AAPL-rec')
 ```
 
 
-
-
-    'buy'
-
-
-
-
 ```python
 r.append('AAPL-rec', '-strong')
 r.get('AAPL-rec')
 ```
-
-
-
-
-    'buy-strong'
-
-
 
 
 ```python
@@ -64,13 +50,6 @@ r.set('AAPL-conviction', 5)
 r.incrby('AAPL-conviction', 2)
 r.get('AAPL-conviction')
 ```
-
-
-
-
-    '7'
-
-
 
 #### Hashes
 * Each hash has a set of key-value pairs
@@ -81,13 +60,6 @@ r.get('AAPL-conviction')
 r.hset('AAPL-data', 'last-price', 114.06)
 r.hget('AAPL-data', 'last-price')
 ```
-
-
-
-
-    '114.06'
-
-
 
 
 ```python
@@ -101,18 +73,6 @@ aapl_data = {
 r.hmset('AAPL-data', aapl_data)
 r.hgetall('AAPL-data')  # note how last-price also persisted under the key AAPL-data
 ```
-
-
-
-
-    {'employees': '100000',
-     'eps': '8.25',
-     'headquarters': 'Cupertino, CA',
-     'last-price': '114.06',
-     'mkt_cap': '615360.2',
-     'pe': '13.41'}
-
-
 
 #### Lists
 * Lists let you store and manipulate an array of values for a given key
@@ -128,23 +88,9 @@ r.lpop('users')
 ```
 
 
-
-
-    'david'
-
-
-
-
 ```python
 r.lindex('users', 0)
 ```
-
-
-
-
-    'cathy'
-
-
 
 
 ```python
@@ -153,13 +99,6 @@ r.ltrim('users', 0, 2)  # inclusive
 r.linsert('users', 'before', 'alice', 'max')  # rare case where it looks up values
 r.lrange('users', 0, 10)
 ```
-
-
-
-
-    ['cathy', 'bob', 'max', 'alice']
-
-
 
 #### Sets
 * Sets are used to store unique values and provide a number of set-based operations, like unions
@@ -173,25 +112,11 @@ r.sismember('tickers', 'AAPL')
 ```
 
 
-
-
-    True
-
-
-
-
 ```python
 r.sadd('more-tickers', 'BBY', 'CAKE', 'DRI')
 r.sunionstore('tickers', 'tickers', 'more-tickers')
 r.smembers('tickers')
 ```
-
-
-
-
-    {'AAPL', 'BBY', 'CAKE', 'CMG', 'DRI', 'MCD', 'WMT'}
-
-
 
 #### Sorted Sets
 * Sorted sets are sets, but each element is linked to a score
@@ -204,24 +129,10 @@ r.zcard('portfolio')
 ```
 
 
-
-
-    4
-
-
-
-
 ```python
 r.zincrby('portfolio', 'CMG', -25)
 r.zscore('portfolio', 'CMG')
 ```
-
-
-
-
-    -75.0
-
-
 
 
 ```python
@@ -229,23 +140,9 @@ r.zrange('portfolio', 0, 100, withscores=True)
 ```
 
 
-
-
-    [('CMG', -75.0), ('WMT', -20.0), ('MCD', 20.0), ('AAPL', 50.0)]
-
-
-
-
 ```python
 r.zrevrank('portfolio', 'CMG')
 ```
-
-
-
-
-    3
-
-
 
 #### Other useful commands
 
@@ -264,26 +161,10 @@ r.zrevrank('portfolio', 'CMG')
 print(r.sort('users', desc=True, alpha=True))
 ```
 
-    ['max', 'cathy', 'bob', 'alice']
-    
-
 
 ```python
 r.keys()
 ```
-
-
-
-
-    ['AAPL-conviction',
-     'tickers',
-     'more-tickers',
-     'AAPL-data',
-     'AAPL-rec',
-     'portfolio',
-     'users']
-
-
 
 
 ```python
@@ -292,24 +173,10 @@ r.keys()
 ```
 
 
-
-
-    []
-
-
-
-
 ```python
 r.set('key', 'value')
 r.expire('key', 5)
 ```
-
-
-
-
-    True
-
-
 
 
 ```python
@@ -330,6 +197,8 @@ from redis import Redis
 import random
 from string import ascii_letters
 
+r = Redis(host='localhost', port=6379, db=0, decode_responses=True)
+
 hugestring = ''.join([random.choice(ascii_letters) for i in range(1000000)])
 ```
 
@@ -343,13 +212,6 @@ hugestring  # Compare how long it takes for jupyter nb to display it...
 r.set('key', hugestring)  # ...with how long it took for it to be stored in Redis
 ```
 
-
-
-
-    True
-
-
-
 Have a general python object that you want to store in Redis? No problem - just `pickle` it
 
 
@@ -362,13 +224,6 @@ pickled_object = pickle.dumps(res)
 
 r.set('foo', pickled_object)
 ```
-
-
-
-
-    True
-
-
 
 #### Example 2: task queues
 
