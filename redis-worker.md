@@ -9,11 +9,11 @@ class RedisQueue(object):
        self.__db = Redis(**redis_kwargs)
        self.key = key
 
-    def qsize(self):  # size of the queue
+    def queue_size(self):  # size of the queue
         return self.__db.llen(self.key)
 
     def isempty(self):
-        return self.qsize() == 0
+        return self.queue_size() == 0
 
     def put(self, item):
         self.__db.rpush(self.key, item)
