@@ -302,7 +302,7 @@ print('All done')
 
 * Unable to search by values. Redis isn't sql!
 * You cannot roll back transactions (be careful with `flushdb` and `flushall`...)
-* Redis resides RAM so may be costly for your local machine
+* Redis resides in RAM so may be costly for your local machine
     * Solution: dedicated machine that runs Redis. This was our setup at Yipit
 * Key management may be cumbersome if you don't remember what's in what key
 
