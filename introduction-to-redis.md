@@ -13,8 +13,6 @@ Best of all, it's super easy to pick up and add to your arsenal.
 
 ```python
 from redis import Redis
-import pandas as pd
-import numpy as np
 
 # without decode_responses all responses will come to you as bytes
 r = Redis(host='localhost', port=6379, db=0, decode_responses=True)
