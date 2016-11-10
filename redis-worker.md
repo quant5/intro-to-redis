@@ -28,7 +28,7 @@ class RedisQueue(object):
         return item
 
 def method_that_takes_awhile(foo):
-    time.sleep(10)
+    time.sleep(5)
     print('done with task {}'.format(foo))
 ```
 
